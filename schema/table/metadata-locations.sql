@@ -1,12 +1,11 @@
 CREATE DATABASE IF NOT EXISTS metadata; USE metadata;
 
 CREATE TABLE IF NOT EXISTS locations (
-  `locationId` CHAR(50) NOT NULL,
-  `name` CHAR(50) NOT NULL,
-  `lat` FLOAT(11) NOT NULL,
-  `lot` FLOAT(11) NOT NULL,
-  `elevation` FLOAT(11),
-  `description` CHAR(255),
-  PRIMARY KEY (`locationId`),
-  UNIQUE INDEX `uq_locationId` (`locationId`)
-);
+  `locationId` CHAR(32) NOT NULL,
+  `name` CHAR(45) NOT NULL,
+  `lat` DOUBLE NOT NULL,
+  `lot` DOUBLE NOT NULL,
+  `elevation` DOUBLE NULL,
+  `description` CHAR(255) NULL,
+  PRIMARY KEY (`locationId`)
+) ENGINE=InnoDB DEFAULT COLLATE='utf8_general_ci';

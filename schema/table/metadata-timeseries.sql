@@ -1,13 +1,18 @@
 CREATE DATABASE IF NOT EXISTS metadata; USE metadata;
 
 CREATE TABLE IF NOT EXISTS timeseries (
-  `timeseriesId` CHAR(50) NOT NULL,
-  `moduleId` CHAR(50) NOT NULL,
-  `valueType` CHAR(50) NOT NULL,
-  `parameterId` CHAR(50) NOT NULL,
-  `locationId` CHAR(50) NOT NULL,
+  `timeseriesId` CHAR(64) NOT NULL,
+  `moduleId` CHAR(32) NOT NULL,
+  `valueType` CHAR(32) NOT NULL,
+  `parameterId` CHAR(32) NOT NULL,
+  `locationId` CHAR(32) NOT NULL,
   `timeseriesType` ENUM('ExternalHistorical', 'ExternalForecasting', 'SimulatedHistorical', 'SimulatedForecasting'),
-  `timeStepId` CHAR(50) NOT NULL,
+  `timeStepId` CHAR(32) NOT NULL,
   PRIMARY KEY (`timeseriesId`),
-  UNIQUE INDEX `uq_timeseries` (`moduleId`, `valueType`, `parameterId`, `locationId`, `timeseriesType`, `timeStepId`)
-);
+  INDEX `moduleId_idx` (`moduleId` ASC),
+  INDEX `valueType_idx` (`valueType` ASC),
+  INDEX `parameterId_idx` (`parameterId` ASC),
+  INDEX `locationId_idx` (`locationId` ASC),
+  INDEX `timeseriesType_idx` (`timeseriesType` ASC),
+  INDEX `timeStepId_idx` (`timeStepId` ASC)
+) ENGINE=InnoDB DEFAULT COLLATE='utf8_general_ci';
