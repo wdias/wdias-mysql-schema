@@ -3,10 +3,10 @@ CREATE DATABASE IF NOT EXISTS metadata; USE metadata;
 CREATE TABLE IF NOT EXISTS timeseries (
   `timeseriesId` CHAR(64) NOT NULL,
   `moduleId` CHAR(32) NOT NULL,
-  `valueType` CHAR(32) NOT NULL,
+  `valueType` ENUM('Scalar', 'Vector', 'Grid') NOT NULL,
   `parameterId` CHAR(32) NOT NULL,
   `locationId` CHAR(32) NOT NULL,
-  `timeseriesType` ENUM('ExternalHistorical', 'ExternalForecasting', 'SimulatedHistorical', 'SimulatedForecasting'),
+  `timeseriesType` ENUM('ExternalHistorical', 'ExternalForecasting', 'SimulatedHistorical', 'SimulatedForecasting') NOT NULL,
   `timeStepId` CHAR(32) NOT NULL,
   PRIMARY KEY (`timeseriesId`),
   INDEX `moduleId_idx` (`moduleId` ASC),
