@@ -1,6 +1,7 @@
 *.ss~
 *.ss#*
 .#*.ss
+nohup.out
 
 *.scm~
 *.scm#*
