@@ -1,13 +1,18 @@
 # !/bin/bash
 APP_NAME=$1
 DB_NAME=$2
-KILL_PORT_FORWARD="${3:-y}"
+USERNAME=$3
+KILL_PORT_FORWARD="${4:-y}"
 if [ -z "$1" ]; then
-  echo "Helm Chart Name should provide. E.g: ./install_database.sh adapter-metadata-sql metadata"
+  echo "Helm Chart Name should provide. E.g: ./install_database.sh adapter-metadata-sql metadata wdias"
   exit 1
 fi
 if [ -z "$2" ]; then
-  echo "Database Name should provide. E.g: ./install_database.sh adapter-metadata-sql metadata"
+  echo "Database Name should provide. E.g: ./install_database.sh adapter-metadata-sql metadata wdias"
+  exit 1
+fi
+if [ -z "$3" ]; then
+  echo "Username should provide. E.g: ./install_database.sh adapter-metadata-sql metadata wdias"
   exit 1
 fi
 echo "Kill Port Forwarding at the end: $KILL_PORT_FORWARD"
@@ -39,6 +44,7 @@ if [ "$PID_EXIST" != "" ]; then
   fi
 fi
 
+echo "Enable port forwarding for '$APP_NAME'"
 kubectl port-forward svc/$APP_NAME 3306 &
 sleep 1
 
@@ -48,7 +54,7 @@ echo
 
 for file in $(find . -type f -name "$DB_NAME*.sql")
 do
-  mysql -h 127.0.0.1 -u wdias -p$password < $file
+  mysql -h 127.0.0.1 -u $USERNAME -p$password < $file
 done
 
 kill_port_forward $KILL_PORT_FORWARD
