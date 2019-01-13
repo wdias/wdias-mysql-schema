@@ -1,4 +1,4 @@
-CREATE DATABASE IF NOT EXISTS extenstion; USE extenstion;
+CREATE DATABASE IF NOT EXISTS extension; USE extension;
 
 CREATE TABLE IF NOT EXISTS extensions (
   `extensionId` CHAR(64) NOT NULL,
