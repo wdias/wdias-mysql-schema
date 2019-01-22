@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS extensions (
   `data` JSON NOT NULL,
   `options` JSON NOT NULL,
   PRIMARY KEY (`extensionId`),
-  UNIQUE `extension_function_unique` (`extension`, `function`)
+  UNIQUE `id_extension_function_unique` (`extensionId`, `extension`, `function`)
 ) ENGINE=InnoDB DEFAULT COLLATE='utf8_general_ci';
