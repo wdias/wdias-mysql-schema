@@ -3,6 +3,8 @@ MySQL schemas of WDIAS microservices
 
 ## Scripts
 ### Install Database
+Make sure to install MySQL Client
+- MacOS: `brew install mysql`
 ```
 ./scripts/install_database.sh <HELM_CHART_NAME> <DB_NAME> <USERNAME>
 ```
