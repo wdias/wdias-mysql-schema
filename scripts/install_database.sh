@@ -2,6 +2,7 @@
 APP_NAME=$1
 DB_NAME=$2
 USERNAME=$3
+PASSWORD=$4
 KILL_PORT_FORWARD="${4:-y}"
 if [ -z "$1" ]; then
   echo "Helm Chart Name should provide. E.g: ./install_database.sh adapter-metadata-sql metadata wdias"
@@ -48,13 +49,16 @@ echo "Enable port forwarding for '$APP_NAME'"
 kubectl port-forward svc/$APP_NAME 3306 &
 sleep 1
 
-echo MySQL Password: 
-read -s password
-echo
+if [[ -z $PASSWORD ]]; then
+  echo MySQL Password:
+  read -s password
+  PASSWORD=$password
+  echo
+fi
 
 for file in $(find . -type f -name "$DB_NAME*.sql")
 do
-  mysql -h 127.0.0.1 -u $USERNAME -p$password < $file
+  mysql -h 127.0.0.1 -u $USERNAME -p$PASSWORD < $file
 done
 
 kill_port_forward $KILL_PORT_FORWARD
